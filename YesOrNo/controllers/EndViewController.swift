@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import AVFoundation
 
 class EndViewController: UIViewController {
-
+    let player = AVPlayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let url = Bundle.main.url(forResource: "winsound", withExtension: "mp3")!
+        let playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
         // Do any additional setup after loading the view.
     }
 

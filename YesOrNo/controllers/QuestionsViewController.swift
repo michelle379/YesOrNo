@@ -75,11 +75,11 @@ class QuestionsViewController: UIViewController {
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
         player.play()
+        nextCount()
     }
     
     @IBAction func YesPressed(_ sender: Any) {
         ParseLabel.text = questions[index].parse
-        nextCount()
         if questions[index].answer{
             answerRight()
 //            YesButton.setTitle("答對了", for: .normal)
@@ -93,6 +93,10 @@ class QuestionsViewController: UIViewController {
     fileprivate func answerWrong() {
         heart[heartindex].isHidden = true
         heartindex -= 1
+        let url = Bundle.main.url(forResource: "wrongsound", withExtension: "mp3")!
+        let playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
         if heartindex == 0 {
             let controller = UIAlertController(title: "life用光了", message: "再挑戰一次吧", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default){ _ in
@@ -109,13 +113,14 @@ class QuestionsViewController: UIViewController {
             ResultLabel.isHidden = false
             ResultView.isHidden = false
             light.isHidden = false
+            nextCount()
         }
         
     }
     
     @IBAction func NoPressed(_ sender: Any) {
         ParseLabel.text = questions[index].parse
-        nextCount()
+//        nextCount()
         if !questions[index].answer{
             answerRight()
 //            NoButton.setTitle("答對了", for: .normal)
